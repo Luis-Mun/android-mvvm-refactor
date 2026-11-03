@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FirstApp_LuisMunoz</string>
+    <string name="hint_item_name">Item name</string>
+    <string name="hint_item_quantity">Qty</string>
+    <string name="add_item">Add item</string>
+    <string name="delete">Delete</string>
+    <string name="plus">+</string>
+    <string name="minus">−</string>
+    <string name="increase_quantity">Increase quantity</string>
+    <string name="decrease_quantity">Decrease quantity</string>
+    <string name="item_name_format">Item: %1$s</string>
+    <string name="item_quantity_format">Qty: %1$d</string>
+    <string name="sms_sent">Low inventory SMS alert sent</string>
+    <string name="sms_failed">SMS failed to send</string>
+    <string name="sms_disabled">SMS notifications are disabled</string>
+</resources>
