@@ -8,7 +8,8 @@ The original app (`FirstApp_LuisMunoz`, built for SNHU CS-360) did everything in
 
 - Register / log in (passwords are stored as salted PBKDF2 hashes)
 - Add, increment/decrement, and delete inventory items shown in a 2-column grid
-- Send an SMS alert when an item's quantity reaches 0 (asks for `SEND_SMS` permission at that moment)
+- Send an SMS alert when an item's quantity reaches 0 (asks for the alert phone number and the `SEND_SMS` permission at that moment, then reports whether the text was really sent)
+- Set the alert phone number and log out from the overflow menu
 
 ## Architecture
 
@@ -23,7 +24,7 @@ View (Activity, XML, Adapter)  ->  ViewModel  ->  Repository (interface)  ->  Ro
 | Repository | `data.repository` | Single source of truth; runs DB work off the main thread |
 | Data | `data.dao`, `data.database` | Room entities, DAOs, database |
 | Model | `model` | `Item`, `User` |
-| Utils | `utils` | `Validator`, `PasswordHasher`, `Event`, `SmsNotifier`, `AppConfig` |
+| Utils | `utils` | `Validator`, `PasswordHasher`, `Event`, `SmsNotifier`, `AlertSettings`, `AppConfig` |
 
 See [docs/architecture.md](docs/architecture.md) for a diagram and [docs/refactor-notes.md](docs/refactor-notes.md) for a before/after of what moved where.
 
@@ -37,12 +38,12 @@ Java 11 · AndroidX AppCompat · RecyclerView (`ListAdapter` + `DiffUtil`) · Li
 2. Let Gradle sync, then run on an emulator or device with API 34+.
 3. Register an account on the login screen, log in, and add items.
 
-SMS sending only works on a device/emulator that supports telephony. The alert recipient is a placeholder in `utils/AppConfig.java`.
+SMS sending only works on a device/emulator that supports telephony. The alert recipient is set in the app (menu > Alert phone number) and stored in private SharedPreferences.
 
 ## Tests
 
 ```bash
-./gradlew testDebugUnitTest          # JVM unit tests (ViewModels, validation, hashing)
+./gradlew testDebugUnitTest          # 31 JVM unit tests (ViewModels, validation, hashing)
 ./gradlew connectedDebugAndroidTest  # Room DAO tests, needs a device/emulator
 ```
 
@@ -60,5 +61,4 @@ Add screenshots to `screenshots/` after running the app (login, inventory grid, 
 
 - Items are shared across all users (same as the original app); per-user inventories are a natural next step and are required for the cloud-sync project
 - Old data in the legacy `AppDatabase.db` file is not migrated; the Room database uses a new file (`inventory.db`) and users re-register
-- Alert phone number is a constant, not a user setting
 - Callbacks + executor instead of coroutines/Flow, to keep the project in Java

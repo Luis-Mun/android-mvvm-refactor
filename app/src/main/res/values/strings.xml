@@ -10,7 +10,14 @@
     <string name="decrease_quantity">Decrease quantity</string>
     <string name="item_name_format">Item: %1$s</string>
     <string name="item_quantity_format">Qty: %1$d</string>
-    <string name="sms_sent">Low inventory SMS alert sent</string>
-    <string name="sms_failed">SMS failed to send</string>
+    <string name="sms_sent">Low-stock SMS alert sent</string>
+    <string name="sms_failed">Low-stock SMS alert could not be sent</string>
     <string name="sms_disabled">SMS notifications are disabled</string>
+    <string name="menu_alert_phone">Alert phone number</string>
+    <string name="menu_logout">Log out</string>
+    <string name="hint_alert_phone">Phone number</string>
+    <string name="alert_phone_explanation">Low-stock alerts are sent by SMS to this number.</string>
+    <string name="alert_phone_saved">Alert phone number saved</string>
+    <string name="alert_phone_needed">Set a phone number to receive low-stock alerts</string>
+    <string name="save">Save</string>
 </resources>

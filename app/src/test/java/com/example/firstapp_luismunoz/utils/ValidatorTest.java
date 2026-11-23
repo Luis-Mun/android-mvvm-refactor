@@ -39,4 +39,27 @@ public class ValidatorTest {
         assertNotNull(Validator.validatePassword("short"));
         assertNotNull(Validator.validatePassword(null));
     }
+
+    @Test
+    public void phoneNumber_acceptsCommonFormats() {
+        assertNull(Validator.validatePhoneNumber("5551234567"));
+        assertNull(Validator.validatePhoneNumber("(555) 123-4567"));
+        assertNull(Validator.validatePhoneNumber("+1 555.123.4567"));
+    }
+
+    @Test
+    public void phoneNumber_rejectsBadInput() {
+        assertNotNull(Validator.validatePhoneNumber(null));
+        assertNotNull(Validator.validatePhoneNumber("   "));
+        assertNotNull(Validator.validatePhoneNumber("555-1234"));          // too short
+        assertNotNull(Validator.validatePhoneNumber("1234567890123456"));  // too long
+        assertNotNull(Validator.validatePhoneNumber("555-CALL-NOW"));      // letters
+        assertNotNull(Validator.validatePhoneNumber("55+51234567"));       // + not at the start
+    }
+
+    @Test
+    public void phoneNumber_normalizedForStorage() {
+        org.junit.Assert.assertEquals("+15551234567", Validator.normalizePhoneNumber(" +1 (555) 123-4567 "));
+        assertNull(Validator.normalizePhoneNumber(""));
+    }
 }
